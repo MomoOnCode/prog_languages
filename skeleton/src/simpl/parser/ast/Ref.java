@@ -1,5 +1,7 @@
 package simpl.parser.ast;
 
+import com.sun.beans.TypeResolver;
+
 import simpl.interpreter.RefValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
@@ -21,13 +23,18 @@ public class Ref extends UnaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        // DID
+        TypeResult r1 = e.typecheck(E);
+        return TypeResult.of(r1.s, new RefType(r1.t));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        // DID
+        Value v = e.eval(s);
+        int addr = s.p.get();
+        s.M.put(addr, v);
+        s.p.set(addr+1);
+        return new RefValue(addr);      
     }
 }

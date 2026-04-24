@@ -14,7 +14,12 @@ public abstract class ArithExpr extends BinaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        // DID
+        TypeResult r1 = l.typecheck(E);
+        TypeResult r2 = r.typecheck(r1.s.compose(E));
+        Substitution s3 = r1.t.unify(Type.INT);
+        Substitution s4 = r2.t.unify(Type.INT);
+        Substitution combined = s4.compose(s3).compose(r2.s).compose(r1.s);
+        return TypeResult.of(combined, Type.INT);
     }
 }
