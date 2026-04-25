@@ -14,8 +14,17 @@ import simpl.typing.TypeResult;
 
 public class hd extends FunValue {
 
-    public hd() {
-        // TODO
-        super(null, null, null);
-    }
+  public hd() {
+    // DID
+    super(Env.empty, Symbol.symbol("x"), new Expr() {
+      public Value eval(State s) throws RuntimeError {
+        ConsValue v = (ConsValue) s.E.get(Symbol.symbol("x"));
+        return v.v1;
+      }
+
+      public TypeResult typecheck(TypeEnv E) {
+        return null;
+      }
+    });
+  }
 }

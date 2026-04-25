@@ -6,6 +6,7 @@ import simpl.interpreter.State;
 import simpl.interpreter.Value;
 import simpl.parser.Symbol;
 import simpl.typing.ArrowType;
+import simpl.typing.Substitution;
 import simpl.typing.Type;
 import simpl.typing.TypeEnv;
 import simpl.typing.TypeError;
@@ -28,13 +29,17 @@ public class Fn extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        // DID
+        TypeVar tv = new TypeVar(false);
+        TypeEnv newE = TypeEnv.of(E, x, tv);
+        TypeResult r1 = e.typecheck(newE);
+        Substitution combined = r1.s;
+        return TypeResult.of(combined, new ArrowType(combined.apply(tv), r1.t));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        // DID
+        return new FunValue(s.E, x, e);
     }
 }

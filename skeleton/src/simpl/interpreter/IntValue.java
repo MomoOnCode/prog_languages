@@ -2,19 +2,19 @@ package simpl.interpreter;
 
 public class IntValue extends Value {
 
-    public final int n;
+  public final int n;
 
-    public IntValue(int n) {
-        this.n = n;
-    }
+  public IntValue(int n) {
+    this.n = n;
+  }
 
-    public String toString() {
-        return "" + n;
-    }
+  public String toString() {
+    return "" + n;
+  }
 
-    @Override
-    public boolean equals(Object other) {
-        // TODO
-        return false;
-    }
+  @Override
+  public boolean equals(Object other) {
+    // DID
+    return (other instanceof IntValue) && ((IntValue) other).n == this.n;
+  }
 }

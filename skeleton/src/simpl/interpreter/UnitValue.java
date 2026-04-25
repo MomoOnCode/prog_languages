@@ -11,7 +11,7 @@ class UnitValue extends Value {
 
     @Override
     public boolean equals(Object other) {
-        // TODO
-        return false;
+        // DID
+        return other instanceof UnitValue;
     }
 }

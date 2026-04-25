@@ -24,13 +24,18 @@ public class Name extends Expr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        // DID
+        return TypeResult.of(E.get(x));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        // DID
+        Value v = s.E.get(x);
+        if(v instanceof RecValue) {
+            RecValue rv = (RecValue) v;
+            return new Rec(rv.x, rv.e).eval(State.of(rv.E, s.M, s.p));
+        }
+        return v;
     }
 }

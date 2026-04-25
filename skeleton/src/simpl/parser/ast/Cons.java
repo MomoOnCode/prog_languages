@@ -1,5 +1,7 @@
 package simpl.parser.ast;
 
+import java.awt.Window.Type;
+
 import simpl.interpreter.ConsValue;
 import simpl.interpreter.RuntimeError;
 import simpl.interpreter.State;
@@ -22,13 +24,19 @@ public class Cons extends BinaryExpr {
 
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
+        // DID
+        TypeResult r1 = l.typecheck(E);
+        TypeResult r2 = r.typecheck(r1.s.compose(E));
+        Substitution s1 = r2.t.unify(new ListType(r1.t));
+        Substitution combined = s1.compose(r2.s).compose(r1.s);
+        return TypeResult.of(combined, s1.apply(new ListType(r1.t)));
     }
 
     @Override
     public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
+        // DID
+        Value v1 = l.eval(s);
+        Value v2 = r.eval(s);
+        return new ConsValue(v1,v2);
     }
 }

@@ -15,27 +15,32 @@ import simpl.typing.TypeVar;
 
 public class Rec extends Expr {
 
-    public Symbol x;
-    public Expr e;
+  public Symbol x;
+  public Expr e;
 
-    public Rec(Symbol x, Expr e) {
-        this.x = x;
-        this.e = e;
-    }
+  public Rec(Symbol x, Expr e) {
+    this.x = x;
+    this.e = e;
+  }
 
-    public String toString() {
-        return "(rec " + x + "." + e + ")";
-    }
+  public String toString() {
+    return "(rec " + x + "." + e + ")";
+  }
 
-    @Override
-    public TypeResult typecheck(TypeEnv E) throws TypeError {
-        // TODO
-        return null;
-    }
+  @Override
+  public TypeResult typecheck(TypeEnv E) throws TypeError {
+    // DID
+    TypeVar tv = new TypeVar(false);
+    TypeEnv newE = TypeEnv.of(E, x, tv);
+    TypeResult r1 = e.typecheck(newE);
+    Substitution s1 = r1.t.unify(r1.s.apply(tv));
+    Substitution combined = s1.compose(r1.s);
+    return TypeResult.of(combined, combined.apply(tv));
+  }
 
-    @Override
-    public Value eval(State s) throws RuntimeError {
-        // TODO
-        return null;
-    }
+  @Override
+  public Value eval(State s) throws RuntimeError {
+    // DID
+    return new RecValue(s.E, x, e);
+  }
 }

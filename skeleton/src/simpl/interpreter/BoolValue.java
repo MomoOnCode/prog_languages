@@ -2,19 +2,19 @@ package simpl.interpreter;
 
 public class BoolValue extends Value {
 
-    public final boolean b;
+  public final boolean b;
 
-    public BoolValue(boolean b) {
-        this.b = b;
-    }
+  public BoolValue(boolean b) {
+    this.b = b;
+  }
 
-    public String toString() {
-        return "" + b;
-    }
+  public String toString() {
+    return "" + b;
+  }
 
-    @Override
-    public boolean equals(Object other) {
-        // TODO
-        return false;
-    }
+  @Override
+  public boolean equals(Object other) {
+    // DID
+    return (other instanceof BoolValue) && ((BoolValue) other).b == this.b;
+  }
 }
