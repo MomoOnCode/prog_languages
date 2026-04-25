@@ -1,6 +1,6 @@
 package simpl.parser.ast;
 
-import com.sun.beans.TypeResolver;
+// import com.sun.beans.TypeResolver;
 
 import simpl.interpreter.Env;
 import simpl.interpreter.RuntimeError;
@@ -10,6 +10,7 @@ import simpl.parser.Symbol;
 import simpl.typing.TypeEnv;
 import simpl.typing.TypeError;
 import simpl.typing.TypeResult;
+import simpl.typing.Substitution;
 
 public class Let extends Expr {
 
@@ -30,9 +31,10 @@ public class Let extends Expr {
     public TypeResult typecheck(TypeEnv E) throws TypeError {
         // DID
         TypeResult r1 = e1.typecheck(E);
-        TypeEnv newE = TypeEnv.of(r1.s.compose(E), x,r1.t);
+        TypeEnv newE = TypeEnv.of(r1.s.compose(E), x, r1.s.apply(r1.t));
         TypeResult r2 = e2.typecheck(newE);
-        return TypeResult.of(r2.s.compose(r1.s), r2.t);
+        Substitution combined = r2.s.compose(r1.s);
+        return TypeResult.of(combined, combined.apply(r2.t));
     }
 
     @Override

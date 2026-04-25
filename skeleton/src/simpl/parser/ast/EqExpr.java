@@ -1,8 +1,8 @@
 package simpl.parser.ast;
 
-import java.lang.classfile.TypeAnnotation.TypeArgumentTarget;
+// import java.lang.classfile.TypeAnnotation.TypeArgumentTarget;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.TypeCheckError;
+// import com.sun.org.apache.xalan.internal.xsltc.compiler.util.TypeCheckError;
 
 import simpl.typing.ListType;
 import simpl.typing.PairType;
@@ -28,6 +28,7 @@ public abstract class EqExpr extends BinaryExpr {
         TypeResult r2 = r.typecheck(r1.s.compose(E));
         Substitution s3 = r1.t.unify(r2.t);
         Substitution combined = s3.compose(r2.s).compose(r1.s);
+   
         if(!combined.apply(r1.t).isEqualityType()){
             throw new TypeMismatchError();
         }

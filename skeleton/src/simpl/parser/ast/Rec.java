@@ -33,9 +33,14 @@ public class Rec extends Expr {
     TypeVar tv = new TypeVar(false);
     TypeEnv newE = TypeEnv.of(E, x, tv);
     TypeResult r1 = e.typecheck(newE);
-    Substitution s1 = r1.t.unify(r1.s.apply(tv));
+  // Substitution s1 = r1.t.unify(r1.s.apply(tv));
+//    Substitution s1 = tv.unify(r1.t);
+ //   Substitution combined = s1.compose(r1.s);
+  //  return TypeResult.of(combined, combined.apply(tv));
+    //RECORDS ARE NOT TYPING IM LOSING IT
+    Substitution s1 = r1.s.apply(tv).unify(r1.s.apply(r1.t));
     Substitution combined = s1.compose(r1.s);
-    return TypeResult.of(combined, combined.apply(tv));
+    return TypeResult.of(combined, combined.apply(r1.t));
   }
 
   @Override

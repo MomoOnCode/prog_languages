@@ -20,4 +20,8 @@ public class RecValue extends Value {
         // DID
         return false;
     }
+    @Override
+    public String toString() {
+        return "fun";
+    }
 }

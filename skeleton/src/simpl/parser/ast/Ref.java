@@ -1,6 +1,6 @@
 package simpl.parser.ast;
 
-import com.sun.beans.TypeResolver;
+// import com.sun.beans.TypeResolver;
 
 import simpl.interpreter.RefValue;
 import simpl.interpreter.RuntimeError;

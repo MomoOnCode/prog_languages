@@ -30,11 +30,14 @@ public class Cond extends Expr {
         TypeResult r1 = e1.typecheck(E);
         Substitution s1 = r1.t.unify(Type.BOOL);
         
-        TypeResult r2 = e2.typecheck(r1.s.compose(E));
-        TypeResult r3 = e3.typecheck(r2.s.compose(E));
-        Substitution s2 = r2.t.unify(r3.t);
+      //  TypeResult r2 = e2.typecheck(r1.s.compose(E));
+       // TypeResult r3 = e3.typecheck(r2.s.compose(E));
+      //  Substitution s2 = r2.t.unify(r3.t);
+        TypeResult r2 = e2.typecheck(s1.compose(r1.s).compose(E));
+        TypeResult r3 = e3.typecheck(r2.s.compose(s1).compose(r1.s).compose(E));
+        Substitution s2 = r3.s.apply(r2.t).unify(r3.t);
         Substitution combined = s2.compose(r3.s).compose(r2.s).compose(s1).compose(r1.s);
-        return TypeResult.of(combined, s2.apply(r2.t));
+        return TypeResult.of(combined, s2.apply(r3.t));
     }
 
     @Override

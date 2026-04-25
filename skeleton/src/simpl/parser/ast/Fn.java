@@ -24,7 +24,8 @@ public class Fn extends Expr {
     }
 
     public String toString() {
-        return "(fn " + x + "." + e + ")";
+      //  return "fun";
+       return "(fn " + x + "." + e + ")";
     }
 
     @Override

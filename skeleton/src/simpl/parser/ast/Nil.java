@@ -18,7 +18,7 @@ public class Nil extends Expr {
     @Override
     public TypeResult typecheck(TypeEnv E) throws TypeError {
         // DID ?
-        return TypeResut.of(new ListType(new TypeVar(true)));
+        return TypeResult.of(new ListType(new TypeVar(true)));
     }
 
     @Override
