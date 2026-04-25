@@ -36,14 +36,12 @@ public final class ArrowType extends Type {
     public boolean contains(TypeVar tv) {
         // DID
         return t1.contains(tv) || t2.contains(tv);
-        // return false;
     }
 
     @Override
     public Type replace(TypeVar a, Type t) {
         // DID
         return new ArrowType(t1.replace(a, t), t2.replace(a, t));
-        // return null;
     }
 
     public String toString() {
