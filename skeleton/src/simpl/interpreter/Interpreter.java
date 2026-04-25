@@ -15,7 +15,7 @@ public class Interpreter {
         try (InputStream inp = new FileInputStream(filename)) {
             Parser parser = new Parser(inp);
             java_cup.runtime.Symbol parseTree = parser.parse();
-            Expr program = (Expr) parseTree.value;
+            Expr program = (Expr) parseTree.value;    
             System.out.println(program.typecheck(new DefaultTypeEnv()).t);
             System.out.println(program.eval(new InitialState()));
         }
@@ -51,7 +51,7 @@ public class Interpreter {
         interpret("doc/examples/pcf.even.spl");
         interpret("doc/examples/pcf.minus.spl");
         interpret("doc/examples/pcf.factorial.spl");
-        interpret("doc/examples/pcf.fibonacci.spl");
+        interpret("doc/examples/pcf.fibonacci.spl");   
         // interpret("doc/examples/pcf.twice.spl");
         // interpret("doc/examples/pcf.lists.spl");
     }
